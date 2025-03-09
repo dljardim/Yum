@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct YumApp: App {
+    // keeps order in memory no matter what view is being shown
+    @StateObject var order = Order()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environmentObject(order)
         }
     }
 }
+
+
+
