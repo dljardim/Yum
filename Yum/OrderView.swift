@@ -9,6 +9,10 @@ import SwiftUI
 
 struct OrderView: View {
     
+    func deleteItems(at offsets: IndexSet){
+        order.items.remove(atOffsets: offsets)
+    }
+    
     @EnvironmentObject var order: Order
     
     var body: some View {
@@ -22,6 +26,7 @@ struct OrderView: View {
                             Text("$\(item.price)")
                         }
                     }
+                    .onDelete(perform: deleteItems)
                 }
                 
                 Section {
@@ -29,8 +34,12 @@ struct OrderView: View {
                         CheckoutView()
                     }
                 }
+                .disabled(order.items.isEmpty)
             }
             .navigationTitle("Order")
+            .toolbar{
+                EditButton()
+            }
         }
     }
 }
